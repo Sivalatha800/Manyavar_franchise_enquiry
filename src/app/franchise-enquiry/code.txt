@@ -1,0 +1,40 @@
+formSubmittedData: any;
+  submitForm() {
+    this.step2Submitted = true;
+
+    if (this.step2Form.invalid) {
+      let submitFormDataObj: sentDataObj = new sentDataObj();
+      submitFormDataObj.CaptchaCode = this.step2Form.value.captureCode;
+      submitFormDataObj.Comments = this.step2Form.value.comments;
+
+      const formData = new FormData();
+      formData.append('SnapShot1', this.fileValue);
+      this.apiService
+        .submitFormData(submitData, formData)
+        .subscribe((data) => (this.formSubmittedData = data));
+    } else {
+      return;
+    }
+  }
+
+
+  
+ var postData = JSON.stringify(submitFormDataObj);
+// console.log(postData);
+
+// formData.append('body', postData);
+//       console.log(formData);
+
+// const formData = new FormData();
+// formData.append('SnapShot1', this.step2Form.get('snapshot1')?.value);
+
+// this.apiService.submitData(submitData, formData).subscribe(
+//   (res) => console.log(res),
+//   (err) => console.log(err)
+// );
+
+// console.log(this.step1Form.value);
+
+
+
+  (change)="uploadFileCheck($event)"

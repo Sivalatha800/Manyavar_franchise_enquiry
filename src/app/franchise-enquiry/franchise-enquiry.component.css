@@ -1,0 +1,245 @@
+h3 {
+    display: block;
+    font-size: 1.17em;
+    padding: 15px 0;
+    font-weight: bold;
+}
+
+
+
+.franchise {
+    font-family: 'Philosopher', sans-serif;
+    margin-top: 20px;
+}
+
+.enquary {
+    width: 650px;
+    margin: 0 auto;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 12px;
+}
+
+.grid span {
+    font-size: 12px;
+}
+
+.step1_heading,
+.step2_heading {
+    padding: 20px 0 0 0;
+}
+
+.active {
+    background: #f7e3bb;
+    color: #36290a;
+}
+
+.inactive {
+    background: #f5f1e9;
+    color: #ae9151;
+}
+
+
+
+select,
+input[type=text],
+input[type=email],
+input[type=number],
+textarea {
+    border: none;
+    width: 100%;
+    height: 45px;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+}
+
+.myForm {
+    width: 400px;
+    margin: 0 auto;
+}
+
+.input_box,
+.capture_div {
+    position: relative;
+    border: 1px solid #d5c8aa;
+    margin-top: 40px;
+    padding: 10px 5px 0 10px;
+}
+
+textarea {
+    resize: vertical;
+}
+
+.input_box label {
+    background-color: #fff;
+    padding: 5px 15px;
+    position: absolute;
+    left: 20px;
+    top: -12px;
+    font-size: 15px;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    color: #89681f;
+
+}
+
+.input_box input,
+select,
+textarea {
+    color: #8c8b8b;
+    font-size: 15px;
+}
+
+.form_error {
+    color: red;
+    font-size: 12px;
+    padding: 5px;
+    font-weight: bold;
+}
+
+.submitBtn,
+::-webkit-file-upload-button {
+    border: 2px solid #900c19;
+    background: #900c19;
+    padding: 5px 30px;
+    color: #f2c452;
+    font-weight: bold;
+    margin-top: 20px;
+    font-size: 16px;
+
+}
+
+::-webkit-file-upload-button {
+    cursor: pointer;
+    margin-right: 20px;
+    margin-top: 0;
+}
+
+.submitBtn:hover {
+    border: 2px solid #f2c452;
+    background: #f2c452;
+    padding: 5px 30px;
+    color: #900c19;
+    font-weight: bold;
+}
+
+.required_p {
+    margin-bottom: 0;
+    margin-top: 0;
+    font-size: 12px;
+    color: #949494;
+    text-align: center;
+    font-weight: 600;
+}
+
+.input_radio {
+    margin: 25px 10px 0 0;
+    text-transform: capitalize;
+}
+
+input[type=radio] {
+    height: 18px;
+    width: 18px;
+}
+
+.input_radio .input_radio_label {
+    margin-bottom: 10px;
+    color: #ae9151;
+    letter-spacing: 1px;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.input_radio .input_radio_content {
+    display: flex;
+    column-gap: 90px;
+    position: relative;
+}
+
+.input_radio .input_radio_content_data span {
+    align-self: flex-start;
+    padding-left: 10px;
+    position: absolute;
+    top: -1px;
+    color: #8c8b8b;
+    font-weight: 700;
+    font-size: 15px;
+}
+
+.row_p_heading {
+    color: #000;
+    font-size: 16px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    margin-top: 25px;
+}
+
+.row_p_subheading {
+    color: #6c6c6c;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 0;
+}
+
+.row_p_subheading_2 {
+    color: #6c6c6c;
+    font-size: 12px;
+    margin-bottom: 0;
+}
+
+.input_file {
+    margin-top: 10px;
+}
+
+.row {
+    margin-bottom: 20px;
+}
+
+.input_number input {
+    border: 1px solid transparent;
+    padding-left: 10px;
+    margin-top: 10px;
+}
+
+.capture_div {
+    background: #e8dede;
+    padding: 20px 35px;
+}
+
+.flex {
+    display: flex;
+    align-items: center;
+}
+
+.capture_div i {
+    font-size: 30px;
+    color: orangered;
+    margin-left: 30px;
+}
+
+.capture_div button {
+    border: none;
+    background: transparent;
+}
+
+canvas {
+    background-color: #fff;
+}
+
+.form_error {
+    color: red;
+    font-size: 12px;
+    padding: 5px;
+    font-weight: bold;
+}

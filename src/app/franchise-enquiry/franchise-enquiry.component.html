@@ -1,1 +1,586 @@
-<p>franchise-enquiry works!</p>
+<div class="franchise">
+  <div class="enquary">
+    <div class="grid">
+      <div class="step1 active" [className]="isActive ? 'inactive' : 'active'">
+        <div class="step1_heading">
+          <span>step 1</span>
+          <h3>application details</h3>
+        </div>
+      </div>
+      <div
+        class="step2 inactive"
+        [className]="isActive ? 'active' : 'inactive'"
+      >
+        <div class="step2_heading">
+          <span>step 2</span>
+          <h3>proposed store details</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="step1_data" *ngIf="step1Visible">
+    <p class="required_p">*Required fields</p>
+
+    <!-- =================   Step1 Form  ===========================  -->
+    <form class="myForm" [formGroup]="step1Form">
+      <div class="myForm_data">
+        <div>
+          <div class="input_box">
+            <label>Full Name*</label>
+            <input type="text" maxlength="32" formControlName="fullName" />
+          </div>
+
+          <div class="form_error">
+            <div
+              *ngIf="(step1Submitted&&  step1Form.get('fullName')?.errors?.['required']) || (step1Form.get('fullName')?.touched && step1Form.get('fullName')?.errors?.['required'])"
+            >
+              Enter Full Name.
+            </div>
+            <div
+              *ngIf="(step1Form.get('fullName')?.dirty && step1Form.get('fullName')?.errors?.['pattern'])  || (step1Form.get('fullName')?.dirty && step1Form.get('fullName')?.errors?.['minlength'])"
+            >
+              Invalid Full Name.
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="input_box">
+            <label>Email Address*</label>
+            <input type="email" formControlName="email" maxlength="128" />
+          </div>
+
+          <div class="form_error">
+            <div
+              *ngIf="(step1Submitted &&  step1Form.get('email')?.errors?.['required']) || (step1Form.get('email')?.touched && step1Form.get('email')?.errors?.['required'])"
+            >
+              Enter Email Address.
+            </div>
+            <div
+              *ngIf="(step1Form.get('email')?.dirty && step1Form.get('email')?.errors?.['pattern'])"
+            >
+              Invalid Email Address.
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="input_box">
+            <label>Parmanent Residential Address*</label>
+            <textarea
+              id=""
+              cols="30"
+              rows="1"
+              formControlName="address"
+              maxlength="240"
+            ></textarea>
+          </div>
+
+          <div class="form_error">
+            <div
+              *ngIf="(step1Submitted &&  step1Form.get('address')?.errors?.['required']) || (step1Form.get('address')?.touched && step1Form.get('address')?.errors?.['required'])"
+            >
+              Enter Address.
+            </div>
+            <div
+              *ngIf="(step1Form.get('address')?.dirty && step1Form.get('address')?.errors?.['pattern'])"
+            >
+              Invalid Address.
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="input_box">
+            <label>Mobile No*</label>
+            <input
+              type="number"
+              name="mobile"
+              formControlName="mobile"
+              onKeyPress="if(this.value.length==10) return false;"
+            />
+          </div>
+
+          <div class="form_error">
+            <div
+              *ngIf="(step1Submitted &&  step1Form.get('mobile')?.errors?.['required']) || (step1Form.get('mobile')?.touched && step1Form.get('mobile')?.errors?.['required'])"
+            >
+              Enter Mobile Number.
+            </div>
+            <div
+              *ngIf="(step1Form.get('mobile')?.dirty && step1Form.get('mobile')?.errors?.['pattern'])"
+            >
+              Invalid Mobile Number.
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="input_box">
+            <label>Landline No*</label>
+            <input
+              type="number"
+              formControlName="landline"
+              onKeyPress="if(this.value.length==12) return false;"
+            />
+          </div>
+
+          <div class="form_error">
+            <div
+              *ngIf="(step1Submitted &&  step1Form.get('landline')?.errors?.['required']) || (step1Form.get('landline')?.touched && step1Form.get('landline')?.errors?.['required'])"
+            >
+              Enter LandLine Number.
+            </div>
+            <div
+              *ngIf="(step1Form.get('landline')?.dirty && step1Form.get('landline')?.errors?.['pattern'])"
+            >
+              Invalid Landline.
+            </div>
+          </div>
+        </div>
+
+        <div class="text-center mb-5">
+          <button class="submitBtn" type="button" (click)="step2Visible()">
+            Next
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- Step2 code start -->
+  <div class="step2_data" *ngIf="!step1Visible">
+    <p class="required_p">*Required fields</p>
+
+    <div class="step2_form_data">
+      <div class="enquary mt-2">
+        <!-- ======================= step2 Form Start ===================== -->
+        <form [formGroup]="step2Form">
+          <div class="form_data">
+            <div class="row">
+              <div class="col-6">
+                <div>
+                  <div class="input_box">
+                    <label>Proposed store*</label>
+                    <select
+                      formControlName="countryName"
+                      (change)="getAllStatesList($event)"
+                    >
+                      <option value="">Select Country</option>
+                      <option
+                        *ngFor="let country of countries"
+                        [value]="country.CountryId"
+                      >
+                        {{ country.CountryName }}
+                      </option>
+                    </select>
+                  </div>
+                  <div class="form_error">
+                    <div
+                      *ngIf="(step2Submitted &&  step2Form.get('countryName')?.errors?.['required']) || (step2Form.get('countryName')?.touched && step2Form.get('countryName')?.errors?.['required'])"
+                    >
+                      Proposed Store Required.
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-6">
+                <div>
+                  <div class="input_box">
+                    <label>State/Province*</label>
+                    <select
+                      name="state"
+                      formControlName="stateName"
+                      (change)="getAllCitiesList($event)"
+                    >
+                      <option value="">Select State</option>
+                      <option *ngFor="let state of states" [value]="state.Name">
+                        {{ state.Name }}
+                      </option>
+                    </select>
+                  </div>
+
+                  <div class="form_error">
+                    <div
+                      *ngIf="(step2Submitted &&  step2Form.get('stateName')?.errors?.['required']) || (step2Form.get('stateName')?.touched && step2Form.get('stateName')?.errors?.['required'])"
+                    >
+                      State or Province Required.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-6">
+                <div>
+                  <div class="input_box">
+                    <label>City*</label>
+                    <select name="city" formControlName="cityName">
+                      <option value="">Select City</option>
+                      <option *ngFor="let city of cities" [value]="city.Name">
+                        {{ city.Name }}
+                      </option>
+                    </select>
+                  </div>
+                  <div class="form_error">
+                    <div
+                      *ngIf="(step2Submitted &&  step2Form.get('cityName')?.errors?.['required']) || (step2Form.get('cityName')?.touched && step2Form.get('cityName')?.errors?.['required'])"
+                    >
+                      City Required.
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-6">
+                <div>
+                  <div class="input_box">
+                    <label>Enter your location*</label>
+                    <input type="text" formControlName="location" />
+                  </div>
+
+                  <div class="form_error">
+                    <div
+                      *ngIf="(step2Submitted &&  step2Form.get('location')?.errors?.['required']) || (step2Form.get('location')?.touched && step2Form.get('location')?.errors?.['required'])"
+                    >
+                      Enter Location.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-4">
+                <div class="input_radio">
+                  <div class="input_radio_label">
+                    <label for="">ready store available? *</label>
+                  </div>
+                  <div class="input_radio_content">
+                    <div class="input_radio_content_data">
+                      <input
+                        type="radio"
+                        name="storeAvailabale"
+                        formControlName="storeAvailabale"
+                        value="Yes"
+                      />
+                      <span>Yes</span>
+                    </div>
+                    <div class="input_radio_content_data">
+                      <input
+                        type="radio"
+                        name="storeAvailabale"
+                        formControlName="storeAvailabale"
+                        value="No"
+                      />
+                      <span>No</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form_error">
+                  <div
+                    *ngIf="(step2Submitted &&  step2Form.get('storeAvailabale')?.errors?.['required']) || (step2Form.get('storeAvailabale')?.touched && step2Form.get('storeAvailabale')?.errors?.['required'])"
+                  >
+                    Availability Required.
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-4">
+                <div class="input_radio">
+                  <div class="input_radio_label">
+                    <label for="">Own Location? *</label>
+                  </div>
+                  <div class="input_radio_content">
+                    <div class="input_radio_content_data">
+                      <input
+                        type="radio"
+                        name="ownLocation"
+                        formControlName="ownLocation"
+                        value="Yes"
+                      />
+                      <span>Yes</span>
+                    </div>
+                    <div class="input_radio_content_data">
+                      <input
+                        type="radio"
+                        name="ownLocation"
+                        formControlName="ownLocation"
+                        value="No"
+                      />
+                      <span>No</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form_error">
+                  <div
+                    *ngIf="(step2Submitted &&  step2Form.get('ownLocation')?.errors?.['required']) || (step2Form.get('ownLocation')?.touched && step2Form.get('ownLocation')?.errors?.['required'])"
+                  >
+                    Own Location Required.
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-4">
+                <div class="input_radio">
+                  <div class="input_radio_label">
+                    <label for="">Rented location? *</label>
+                  </div>
+                  <div class="input_radio_content">
+                    <div class="input_radio_content_data">
+                      <input
+                        type="radio"
+                        name="rentedLocation"
+                        formControlName="rentedLocation"
+                        value="Yes"
+                      />
+                      <span>Yes</span>
+                    </div>
+                    <div class="input_radio_content_data">
+                      <input
+                        type="radio"
+                        name="rentedLocation"
+                        formControlName="rentedLocation"
+                        value="No"
+                      />
+                      <span>No</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form_error">
+                  <div
+                    *ngIf="(step2Submitted &&  step2Form.get('rentedLocation')?.errors?.['required']) || (step2Form.get('rentedLocation')?.touched && step2Form.get('rentedLocation')?.errors?.['required'])"
+                  >
+                    Rented Location Required.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <p class="row_p_heading">Proposed Store Location in Area</p>
+              <p class="row_p_subheading">
+                Carpet area cannot be less than 1000 sq feet and frontage less
+                than 20 sq feet
+              </p>
+
+              <div class="col-6">
+                <div>
+                  <div class="input_box">
+                    <label>cartpet area (in sq ft)*</label>
+                    <input type="text" formControlName="carpetArea" />
+                  </div>
+
+                  <div class="form_error">
+                    <div
+                      *ngIf="(step2Submitted &&  step2Form.get('carpetArea')?.errors?.['required']) || (step2Form.get('carpetArea')?.touched && step2Form.get('carpetArea')?.errors?.['required'])"
+                    >
+                      Enter Carpet Area.
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-6">
+                <div>
+                  <div class="input_box">
+                    <label>frontage (in sq ft)*</label>
+                    <input type="text" formControlName="frontage" />
+                  </div>
+
+                  <div class="form_error">
+                    <div
+                      *ngIf="(step2Submitted &&  step2Form.get('frontage')?.errors?.['required']) || (step2Form.get('frontage')?.touched && step2Form.get('frontage')?.errors?.['required'])"
+                    >
+                      Enter frontage Area. Minimum 20 sq ft.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <p class="row_p_heading">Proposed Store Location in Area</p>
+              <p class="row_p_subheading_2">(Only PNG, JPG OR GIF)</p>
+
+              <div class="col-6">
+                <div>
+                  <div class="input_file">
+                    <input
+                      type="file"
+                      accept="image/png, image/gif, image/jpg"
+                      (change)="uploadFileCheck($event, '1')"
+                      formControlName="snapshot1"
+                    />
+                  </div>
+                  <div *ngIf="error">Not Image</div>
+                </div>
+              </div>
+              <div class="col-6">
+                <div>
+                  <div class="input_file">
+                    <input
+                      type="file"
+                      accept="image/png, image/gif, image/jpg"
+                      formControlName="snapshot2"
+                      (change)="uploadFileCheck($event, '2')"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <p class="row_p_heading">Snaps attachment by Nearby Stores</p>
+              <p class="row_p_subheading_2">(Only PNG, JPG OR GIF)</p>
+
+              <div class="col-6">
+                <div>
+                  <div class="input_file">
+                    <input
+                      type="file"
+                      accept="image/png, image/gif, image/jpg"
+                      formControlName="snapshot3"
+                      (change)="uploadFileCheck($event, '3')"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col">
+                <div class="input_box">
+                  <label>Retail stores presence in surrounding vicinity*</label>
+                  <textarea
+                    type="text"
+                    cols="30"
+                    rows="1"
+                    formControlName="retailStore"
+                  ></textarea>
+                </div>
+
+                <div class="form_error">
+                  <div
+                    *ngIf="(step2Submitted &&  step2Form.get('retailStore')?.errors?.['required']) || (step2Form.get('retailStore')?.touched && step2Form.get('retailStore')?.errors?.['required'])"
+                  >
+                    Presence of Store Required.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <p class="row_p_heading">Business Background*</p>
+              <p class="row_p_subheading_2">
+                *Whether you have an existing Retail Outlets/Background
+              </p>
+
+              <div class="col-6">
+                <div class="input_radio">
+                  <div class="input_radio_content">
+                    <div class="input_radio_content_data">
+                      <input
+                        type="radio"
+                        name="businessBackground"
+                        formControlName="businessBackground"
+                        value="Yes"
+                      />
+                      <span>Yes</span>
+                    </div>
+                    <div class="input_radio_content_data">
+                      <input
+                        type="radio"
+                        name="businessBackground"
+                        formControlName="businessBackground"
+                        value="No"
+                      />
+                      <span>No</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form_error">
+                  <div
+                    *ngIf="(step2Submitted &&  step2Form.get('businessBackground')?.errors?.['required']) || (step2Form.get('businessBackground')?.touched && step2Form.get('businessBackground')?.errors?.['required'])"
+                  >
+                    Business Background Required.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col">
+                <div class="input_box">
+                  <label>Other Comments*</label>
+                  <textarea
+                    type="text"
+                    cols="30"
+                    rows="1"
+                    formControlName="comments"
+                  ></textarea>
+                </div>
+
+                <div class="form_error">
+                  <div
+                    *ngIf="(step2Submitted &&  step2Form.get('comments')?.errors?.['required']) || (step2Form.get('comments')?.touched && step2Form.get('comments')?.errors?.['required'])"
+                  >
+                    Comments Required.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col">
+                <div class="capture_div flex">
+                  <div class="col-3">
+                    <canvas
+                      id="randomCanvas"
+                      width="125px"
+                      height="50px"
+                    ></canvas>
+                  </div>
+                  <div class="col-3">
+                    <button type="button" (click)="generateCapture()">
+                      <i class="fa-solid fa-rotate-right"></i>
+                    </button>
+                  </div>
+                  <div class="col-6">
+                    <div class="input_number">
+                      <label>Human Identification</label>
+                      <input
+                        type="number"
+                        placeholder="Enter Code"
+                        (keyup)="captureValidation($event)"
+                        formControlName="captureCode"
+                      />
+                    </div>
+
+                    <div class="form_error">
+                      <div
+                        *ngIf="(step2Submitted && step2Form.get('captureCode')?.errors?.['required']) || (step2Form.get('captureCode')?.touched && step2Form.get('captureCode')?.errors?.['required'])  "
+                      >
+                        Please enter the code shown.
+                      </div>
+                      <div *ngIf="captureError">Code does not match.</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="text-center mb-5">
+              <button class="submitBtn" type="button" (click)="submitForm()">
+                Submit
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
